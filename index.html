@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta author="Lakshika" content="pariharlakshika@gmail.com">
+  <title>Covid Prediction Model</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}"  rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/vendor/icofont/icofont.min.css') }}"  rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}"  rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/vendor/remixicon/remixicon.css') }}"  rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/vendor/venobox/venobox.css') }}"  rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/vendor/owl.carousel/assets/owl.carousel.min.css') }}"  rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/vendor/aos/aos.css') }}"  rel="stylesheet">
+  <link href="{{ url_for('static',filename='assets/css/stylefinal.css') }}"  rel="stylesheet">
+
+
+</head>
+
+<body>
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
+
+      <!--<h1 class="logo mr-auto"><a href="index.html">Status Neo</a></h1>-->
+      <!-- for image logo -->
+      <a href="index.html" class="logo mr-auto"><img src="https://statusneo.com///wp-content/uploads/2020/01/2.png" alt="" class="img-fluid"></a>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="index.html">Home</a></li>
+          <li><a href="#about">Project</a></li>
+          <li><a href="#footer">Contact</a></li>
+
+        </ul>
+      </nav>
+
+      <a href="#about" class="get-started-btn scrollto">Get Started</a>
+
+    </div>
+  </header>
+
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
+          data-aos="fade-up" data-aos-delay="200">
+          <h1>Predicting Covid Cases</h1>
+          <h2>From Near Real-Time Data</h2>
+          <div class="d-lg-flex">
+            <a href="https://www.youtube.com/watch?v=f1a8JYAixXU" class="venobox btn-watch-video" data-vbtype="video"
+              data-autoplay="true"> SIR Model Overview! <i class="icofont-play-alt-2"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+            <img width = "400" height = "400" src="https://i.pinimg.com/originals/cb/9f/2c/cb9f2cca4e688ddc4599aacf68c6c37b.gif" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <main id="main">
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Dashboard</h2>
+        </div>
+
+        <div class="row content">
+          <iframe width="1120" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiMjcwOGYwMzUtYjI5Yi00OTc0LTlhNGQtYjdmYWMyMTAyYmM4IiwidCI6IjY1ZDU1ZWMwLWZiOTktNGQ4Mi1iODlmLWYwZDI4NjQ2YjM5YiJ9" frameborder="0" allowFullScreen="true"></iframe>
+      </div>
+    </section>
+
+    <section id="why-us" class="why-us section-bg">
+      <div class="container-fluid" data-aos="fade-up">
+
+        <div class="row">
+
+          <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
+
+            <div class="content">
+              <h3>Discription<strong> About Project</strong></h3>
+              <p>
+                Walkthrough.
+              </p>
+            </div>
+
+            <div class="accordion-list">
+              <ul>
+                <li>
+                  <a data-toggle="collapse" class="collapse" href="#accordion-list-1"><span>01</span> Platform used ? <i class="bx bx-chevron-down icon-show"></i><i
+                      class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-1" class="collapse show" data-parent=".accordion-list">
+                    <p>
+                      SnowFlake, ZEPL and PowerBI
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <a data-toggle="collapse" href="#accordion-list-2" class="collapsed"><span>02</span> Models Deployed ? 
+                    <i class="bx bx-chevron-down icon-show"></i><i
+                      class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-2" class="collapse" data-parent=".accordion-list">
+                    <p>
+                      SIR(Susceptible, Infected, Recovered) model
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <a data-toggle="collapse" href="#accordion-list-3" class="collapsed"><span>03</span> Tech Stack Used ? 
+                    <i class="bx bx-chevron-down icon-show"></i><i
+                      class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-3" class="collapse" data-parent=".accordion-list">
+                    <p>
+                      <img src="{{ url_for('static', filename='assets/img/snow.png') }}" class="img-fluid animated" alt="">
+                    </p>
+                  </div>
+                </li>
+
+                 <li>
+                  <a data-toggle="collapse" href="#accordion-list-4" class="collapsed"><span>04</span> Project Walkthrough ?
+                    <i class="bx bx-chevron-down icon-show"></i><i
+                      class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-4" class="collapse" data-parent=".accordion-list">
+                    <a href="https://docs.google.com/document/d/1P_mYMBTBhnh1mH3crqlwKqwJWF6dh6_t7gZFiuvgUGs/edit?usp=sharing" target="_blank">&nbsp; &nbsp;  Tutorial of Covid-19 Prediction</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img"
+            style='background-image: url("https://weeklywall.com/wp-content/uploads/2020/02/New-Images5-3.gif");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
+        </div>
+
+      </div>
+    </section><!-- End Why Us Section -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-lg-3 col-md-6 footer-contact">
+             <h3>StatusNeo</h3>
+              <p>
+                Lakshika Parihar<br>Neha Singh<br><br>
+                <strong>Phone:</strong> +91 8194033523<br>
+                <strong>Email:</strong> pariharlakshika@gmail.com<br>
+              </p>
+              <!--<div class="card">
+                  <div class="front"><img src="assets/img/Lakshika.png"</div>
+                  <div class="back"></div>
+              </div>-->
+            </div>
+
+            <div class="col-lg-5 col-md-10 footer-links">
+              <h4>Thanks!</h4>
+              <ul>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">A Full-Blown Pipeline on Snowflake and ZEPL and visualization through PowerBi.</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">SIR(Susceptible, Infected, Recovered) model</a></li>
+              </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Social Networks</h4>
+              <p>Connect with Me!</p>
+              <div class="social-links mt-3">
+                <a href="https://twitter.com/saahikkl_myname" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="https://www.facebook.com/lakshika.parihar.7" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="https://www.instagram.com/pariharlakshika/" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/lakshika-parihar-120875158" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="container footer-bottom clearfix">
+       </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="{{ url_for('static', filename='assets/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/jquery.easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/waypoints/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/venobox/venobox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/owl.carousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/aos/aos.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+
+</body>
+
+</html>
