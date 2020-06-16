@@ -1,2 +1,3 @@
-# covid19-prediction-using-SIR-model
-Visualizing and predicting covid19 cases
+# Visualization and Prediction of Covid19 cases in India
+
+
