@@ -2,7 +2,7 @@
   "paragraphs": [
     {
       "title": "",
-      "text": "conn \u003d z.getDatasource(\"snowflake_CP99894apsouth1aws_faa2e8\")",
+      "text": "conn \u003d z.getDatasource()",
       "user": "",
       "dateUpdated": "2020-06-17 05:00:22.000",
       "config": {
