@@ -1,0 +1,121 @@
+{
+  "paragraphs": [
+    {
+      "title": "",
+      "text": "conn \u003d z.getDatasource(\"snowflake_CP99894apsouth1aws_faa2e8\")",
+      "user": "",
+      "dateUpdated": "2020-06-17 05:00:22.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "python",
+          "profile": "python",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.python.PythonInterpreter",
+          "isDefault": true
+        },
+        "colWidth": 12.0,
+        "results": [],
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20200614-072855_1097418899",
+      "dateCreated": "2020-06-14 07:28:55.000",
+      "dateStarted": "2020-06-17 05:00:13.168",
+      "dateFinished": "2020-06-17 05:00:22.596",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "import pandas as pd\nimport numpy as np\nfrom datetime import datetime, timedelta\nimport requests\nimport io\nfrom datetime import datetime\nimport scipy\nimport operator\nfrom scipy.integrate import solve_ivp\nfrom scipy.integrate import odeint\n\n\nwarehouse \u003d \"PC_ZEPL_WH\"\ndatabase \u003d \"PC_ZEPL_DB\"\nstage_table \u003d \"data_stage\"\n\n\ndef transp(data, file_name):\n    data \u003d data[data[\"Country/Region\"] \u003d\u003d \"India\"]\n    data \u003d data.drop([\"Province/State\", \"Country/Region\", \"Lat\", \"Long\"], axis\u003d1)\n    data \u003d data.T\n    data.to_csv(file_name)\n\n\n\n# recovered people data\nread_csv \u003d requests.get(\n    \"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv\").content\nrecovered_df \u003d pd.read_csv(io.StringIO(read_csv.decode(\u0027utf-8\u0027)))\ntransp(recovered_df, \"recovered_timeseries.csv\")\nrecovered_df \u003d pd.read_csv(\"recovered_timeseries.csv\")\nrecovered_df.columns \u003d [\"Date\", \"Recover\"]\nrecovered_df[\"Date\"] \u003d (pd.to_datetime(recovered_df[\"Date\"])).dt.strftime(\"%Y-%m-%d\")\nrecovered_df.to_csv(\"recovered_timeseries.csv\" , index\u003dFalse)\nrecovered_df \u003d pd.read_csv(\"recovered_timeseries.csv\")\n\n\n#confirmed and deaths\nurl \u003d \"https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv\"\nread_csv \u003d requests.get(url).content\naddress \u003d pd.read_csv(io.StringIO(read_csv.decode(\u0027utf-8\u0027)))\naddress.to_csv(\"covid_data.csv\", index\u003dFalse)\naddress \u003d pd.read_csv(\"covid_data.csv\")\n#print(address.head())\n\n\n\ndef execute_result(connection, query):\n    final_result \u003d connection.execute(query).fetchall()\n    return final_result\n\n\ntry:\n    sql \u003d \u0027use role {}\u0027.format(\u0027PC_ZEPL_ROLE\u0027)\n    conn.execute(sql)\n\n    sql \u003d \u0027use database {}\u0027.format(database)\n    conn.execute(sql)\n\n    sql \u003d \u0027use warehouse {}\u0027.format(warehouse)\n    conn.execute(sql)\n\n    sql \u003d \u0027use schema {}\u0027.format(\u0027PUBLIC\u0027)\n    conn.execute(sql)\n\n    try:\n        sql \u003d \u0027alter warehouse {} resume\u0027.format(warehouse)\n        conn.execute(sql)\n    except:\n        pass\n\n    try:\n        sql \u003d \u0027drop table covid_data\u0027\n        conn.execute(sql)\n        print(\"6\")\n    except:\n        pass\n\n    sql \u003d \u0027create table covid_data(iso_code VARCHAR, \u0027 \\\n          \u0027continent VARCHAR ,location VARCHAR ,date DATE, total_cases INT ,new_cases Double, total_deaths INT,new_deaths INT,\u0027 \\\n          \u0027total_cases_per_million DOUBLE, new_cases_per_million DOUBLE , total_deaths_per_million DOUBLE,\u0027 \\\n          \u0027 new_deaths_per_million DOUBLE,total_tests INT,new_tests INT,new_test_smoothed DOUBLE, total_tests_per_thousand DOUBLE,\u0027 \\\n          \u0027new_tests_per_thousand DOUBLE ,new_test_smoothed_per_thousand DOUBLE, tests_units VARCHAR,stringency_index BIGINT,population DOUBLE ,population_density DOUBLE ,\u0027 \\\n          \u0027median_age DOUBLE ,aged_65_older DOUBLE ,aged_70_older DOUBLE ,gdp_per_capita DOUBLE ,\u0027 \\\n          \u0027extreme_poverty DOUBLE,cvd_death_rate DOUBLE ,diabetes_prevalence DOUBLE , female_smokers DOUBLE \u0027 \\\n          \u0027,male_smokers DOUBLE ,handwashing_facilities DOUBLE , hospital_beds_per_100k DOUBLE)\u0027\n    conn.execute(sql)\n    # print(\"7\")\n\n    try:\n        sql \u003d \u0027drop stage if exists data_stage\u0027\n        conn.execute(sql)\n    except:\n        pass\n\n    sql \u003d \"\"\"create stage data_stage file_format \u003d (type \u003d \"csv\" field_delimiter \u003d \",\" skip_header \u003d 1 FIELD_OPTIONALLY_ENCLOSED_BY \u003d \u0027\"\u0027)\"\"\"\n    conn.execute(sql)\n\n    \n    csv_file \u003d \u0027covid_data.csv\u0027\n    sql \u003d \"PUT file://\" + csv_file + \" @DATA_STAGE auto_compress\u003dtrue\"\n    conn.execute(sql)\n\n    sql \u003d \"\"\"copy into covid_data from @DATA_STAGE/covid_data.csv.gz file_format \u003d (type \u003d \"csv\" field_delimiter \u003d \",\" skip_header \u003d 1 FIELD_OPTIONALLY_ENCLOSED_BY \u003d \u0027\"\u0027 ERROR_ON_COLUMN_COUNT_MISMATCH \u003d FALSE)\"\"\" \\\n          \"\"\"ON_ERROR \u003d \"ABORT_STATEMENT\" \"\"\"\n    conn.execute(sql)\n    # print(\"11\")\n    \n    try:\n        sql \u003d \u0027DROP TABLE INDIA_DATA\u0027\n        conn.execute(sql)\n        #print(12)\n    except:\n        pass\n    \n    sql \u003d \"CREATE TABLE INDIA_DATA AS SELECT * FROM COVID_DATA WHERE LOCATION \u003d \u0027India\u0027 AND Date \u003e \u00272020-01-30\u0027\"\n    conn.execute(sql)\n    #print(13)\n\n    try:\n        sql \u003d \u0027DROP TABLE RECOVERED_DATA\u0027\n        conn.execute(sql)\n        # print(12)\n    except:\n        pass\n\n    sql \u003d \"CREATE TABLE RECOVERED_DATA(date DATE,recover INT)\"\n    conn.execute(sql)\n    print(\"8\")\n\n    csv_file \u003d \u0027recovered_timeseries.csv\u0027\n    sql \u003d \"PUT file://\" + csv_file + \" @DATA_STAGE auto_compress\u003dtrue\"\n    conn.execute(sql)\n    print(\"10\")\n\n    sql \u003d \"\"\"copy into RECOVERED_DATA from @DATA_STAGE/recovered_timeseries.csv.gz file_format \u003d (type \u003d \"csv\" field_delimiter \u003d \",\" skip_header \u003d 1 FIELD_OPTIONALLY_ENCLOSED_BY \u003d \u0027\"\u0027 ERROR_ON_COLUMN_COUNT_MISMATCH \u003d FALSE)\"\"\" \\\n          \"\"\"ON_ERROR \u003d \"ABORT_STATEMENT\" \"\"\"\n    conn.execute(sql)\n    print(\"11\")\n\n\n    sql \u003d \"SELECT TOTAL_CASES+NEW_CASES FROM INDIA_DATA ORDER BY DATE DESC LIMIT 12\"\n    res \u003dexecute_result(conn,sql)\n    confirmed \u003d [item for t in res for item in t]\n    confirmed.sort()\n\n    sql \u003d \"SELECT RECOVER FROM RECOVERED_DATA ORDER BY DATE DESC LIMIT 1\"\n    res \u003d execute_result(conn, sql)\n    recovered \u003d [item for t in res for item in t]\n\n    sql \u003d \"SELECT DATE FROM RECOVERED_DATA ORDER BY DATE DESC LIMIT 1\"\n    res \u003d execute_result(conn, sql)\n    start_date \u003d [item for t in res for item in t]\n    start_date \u003d start_date[0]\n    \n    sql \u003d \"SELECT TOTAL_DEATHS FROM INDIA_DATA ORDER BY DATE DESC LIMIT 1\"\n    res \u003d execute_result(conn, sql)\n    deaths \u003d [item for t in res for item in t]\n\n    sql \u003d \"select DISTINCT(POPULATION) from INDIA_DATA\"\n    res \u003d execute_result(conn,sql)\n    population \u003d [item for t in res for item in t]\n    population \u003d population[0]\n\n    #model creation\n    sigma \u003d 4.4\n    beta_sum \u003d 0\n    recovery_rate \u003d 1/14\n    for i in range(10):\n        cases_day_1 \u003d confirmed[i]\n        cases_day_2 \u003d confirmed[i + 1]\n        cases_day_3 \u003d confirmed[i + 2]\n        infected_ratio_day_1 \u003d cases_day_1 / population\n        infected_ratio_day_2 \u003d cases_day_2 / population\n        infected_ratio_day_3 \u003d cases_day_3 / population\n        ej1 \u003d (infected_ratio_day_2 - infected_ratio_day_1 + (recovery_rate * infected_ratio_day_1)) / sigma\n        ej2 \u003d (infected_ratio_day_3 - infected_ratio_day_2 + (recovery_rate * infected_ratio_day_2)) / sigma\n        r1 \u003d recovery_rate * infected_ratio_day_1\n        s1 \u003d 1 - (infected_ratio_day_1 + ej1 + r1)\n        beta \u003d (ej2 - ej1 + (sigma * ej1)) / (s1 * infected_ratio_day_1)\n        beta_sum +\u003d beta\n\n    contact_rate\u003dbeta_sum/12\n\n    Last_infected, Last_recovered \u003d confirmed[-1], recovered[0]  # Initial conditions for infected and recovered people\n    Last_deaths \u003d deaths[0]\n\n    everyone_else \u003d population - Last_infected - Last_recovered - Last_deaths  # Initial conditions for everyone else.\n\n    Current_condition \u003d everyone_else, Last_infected, Last_recovered\n\n    time \u003d np.linspace(0, 8, num\u003d8)\n\n    def SIR(Current_condition, t, population, contact_rate, recovery_rate):\n        S, I, R \u003d Current_condition\n        dS \u003d -contact_rate * S * I / population\n        dI \u003d contact_rate * S * I / population - recovery_rate * I\n        dR \u003d recovery_rate * I\n        return dS, dI, dR\n\n\n    future_forecast_dates \u003d []\n    for i in range(9):\n        future_forecast_dates.append((start_date + timedelta(days\u003di)).strftime(\"%m/%d/%Y\"))\n    print(future_forecast_dates)\n    result \u003d odeint(SIR, Current_condition, time, args\u003d(population, contact_rate, recovery_rate))\n    S, I, R \u003d result.T\n    prediction \u003d set(zip(future_forecast_dates[-10:], I ,R))\n    prediction \u003d pd.DataFrame(prediction)\n    prediction.columns\u003d[\u0027date\u0027,\u0027Infected\u0027,\u0027recovered\u0027]\n    #print(prediction.head())\n    minValue \u003d prediction[\u0027date\u0027].min()\n    #prediction.sort_values(by\u003d[\u0027date\u0027],axis\u003d1)\n    #prediction.drop(prediction.index[[0]])\n    #prediction\u003d prediction.drop(prediction[\u0027date\u0027].idxmin())\n    prediction.drop(prediction[prediction[\u0027date\u0027] \u003d\u003d minValue].index,inplace\u003dTrue)\n    #print(prediction)\n    \n    sql \u003d \u0027DELETE FROM TEMP_TABLE\u0027\n    conn.execute(sql)\n    \n    #sql \u003d \u0027CREATE TABLE TEMP_TABLE(date DATE,infected DOUBLE , recovered DOUBLE)\u0027\n    #conn.execute(sql)\n\n    prediction.to_csv(\"prediction_data.csv\", index\u003dFalse)\n    prediction \u003d pd.read_csv(\"prediction_data.csv\")\n\n    csv_file \u003d \u0027prediction_data.csv\u0027\n    sql \u003d \"PUT file://\" + csv_file + \" @DATA_STAGE auto_compress\u003dtrue\"\n    conn.execute(sql)\n\n    sql \u003d \u0027copy into TEMP_TABLE from @DATA_STAGE/prediction_data.csv.gz \u0027\\\n          \u0027file_format \u003d (type \u003d \"csv\" field_delimiter \u003d \",\" skip_header \u003d 1)\u0027 \\\n          \u0027ON_ERROR \u003d \"ABORT_STATEMENT\" \u0027\n    conn.execute(sql)\n    \n    # UPDATE THE PREDICTION TABLE FOR INFECTED PERSON\n    #sql \u003d \"MERGE INTO PREDICTION P USING INDIA_DATA I  ON (I.DATE \u003d P.DATE) WHEN MATCHED THEN UPDATE SET P.INFECTED \u003d I.TOTAL_CASES+I.NEW_CASES\"\n    #conn.execute(sql)\n\n    # UPDATE THE PREDICTION TABLE FOR PREDICTED DATA\n    #sql \u003d \"MERGE INTO PREDICTION P USING TEMP_TABLE T ON (P.DATE \u003d T.DATE) WHEN MATCHED THEN UPDATE SET P.PREDICTION_INFECTED \u003d T.INFECTED WHEN NOT MATCHED THEN INSERT(DATE,PREDICTION_INFECTED) VALUES (T.DATE,T.INFECTED)\"\n    #conn.execute(sql)\n\n\n\nexcept Exception as e:\n    print(e)\n\n",
+      "user": "",
+      "dateUpdated": "2020-06-17 05:00:26.000",
+      "config": {
+        "selectedInterpreter": {
+          "name": "python",
+          "profile": "python",
+          "isCustom": false,
+          "editorLanguage": "python",
+          "className": "org.apache.zeppelin.python.PythonInterpreter",
+          "isDefault": true
+        },
+        "colWidth": 12.0,
+        "results": [
+          {},
+          {},
+          {},
+          {}
+        ],
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "data": "002002 (42710): SQL compilation error:\nObject \u0027COVID_DATA\u0027 already exists.\n",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20200614-072918_2142623964",
+      "dateCreated": "2020-06-14 07:29:18.000",
+      "dateStarted": "2020-06-17 05:00:22.600",
+      "dateFinished": "2020-06-17 05:00:26.917",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    },
+    {
+      "title": "",
+      "text": "",
+      "user": "",
+      "dateUpdated": "2020-06-14 07:30:23.000",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "",
+      "id": "20200614-073023_1047375354",
+      "dateCreated": "2020-06-14 07:30:23.000",
+      "dateStarted": "2020-06-17 10:29:14.000",
+      "dateFinished": "2020-06-17 10:29:14.000",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 0
+    }
+  ],
+  "name": "Covid-19",
+  "id": "560f91a86e984adf8bcf7c20a5bfb1c4",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "cron": "0 0 5,17 ? * * *"
+  },
+  "info": {}
+}
