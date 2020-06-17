@@ -1,4 +1,7 @@
-# Create an account in Snowflake
+# Connection-Setup-between-zepl-and-snowflake
+
+
+## Create an account in Snowflake
 
 ![](/img/trial.PNG)
 
