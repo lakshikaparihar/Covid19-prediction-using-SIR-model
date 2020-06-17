@@ -9,11 +9,15 @@ So we are running a scheduled python script in zepl which receives the semi-stru
 
 ![Workflow](/static/assets/img/snow.png)
 
+#### Data we have used
+* https://github.com/owid/covid-19-data/tree/master/public/data
+* https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series
+
 ### Link of our work
 
-**Website** : [Covid19 cases in India](https://lakshika1064.github.io/Covid19-prediction-using-SIR-model/)
-#### Zepl Notebook : [Covid19](https://app.zepl.com/viewer/notebooks/bm90ZTovL3BhcmloYXJsYWtzaGlrYUBnbWFpbC5jb20vNTYwZjkxYTg2ZTk4NGFkZjhiY2Y3YzIwYTViZmIxYzQvbm90ZS5qc29u)
-#### Power Bi Dashboard : [Zeplv3](https://app.powerbi.com/groups/me/reports/a1f5d962-d94e-4c18-9529-b15f5f36565b/ReportSection)
+**Website** : https://lakshika1064.github.io/Covid19-prediction-using-SIR-model/
+#### Zepl Notebook : https://app.zepl.com/viewer/notebooks/bm90ZTovL3BhcmloYXJsYWtzaGlrYUBnbWFpbC5jb20vNTYwZjkxYTg2ZTk4NGFkZjhiY2Y3YzIwYTViZmIxYzQvbm90ZS5qc29u
+#### Power Bi Dashboard : https://app.powerbi.com/groups/me/reports/a1f5d962-d94e-4c18-9529-b15f5f36565b/ReportSection
 
 # License 
 
