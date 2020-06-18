@@ -1,3 +1,5 @@
+# COVID-19 PREDICTION MODEL(SIR)
+
 Let’s create our prediction model……
 
 For prediction, we are using the data of the past 12 days so we will fetch that data from snowflake and store it in a list. We need to sort it as the data we fetched is in the descending format so it can affect our prediction.
