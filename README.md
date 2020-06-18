@@ -17,7 +17,7 @@ So we are running a scheduled python script in zepl which receives the semi-stru
 
 **Website** : https://lakshika1064.github.io/Covid19-prediction-using-SIR-model/
 #### Zepl Notebook : https://app.zepl.com/viewer/notebooks/bm90ZTovL3BhcmloYXJsYWtzaGlrYUBnbWFpbC5jb20vNTYwZjkxYTg2ZTk4NGFkZjhiY2Y3YzIwYTViZmIxYzQvbm90ZS5qc29u
-#### Power Bi Dashboard : https://app.powerbi.com/groups/me/reports/a1f5d962-d94e-4c18-9529-b15f5f36565b/ReportSection
+#### Power Bi Dashboard : https://app.powerbi.com/view?r=eyJrIjoiMjcwOGYwMzUtYjI5Yi00OTc0LTlhNGQtYjdmYWMyMTAyYmM4IiwidCI6IjY1ZDU1ZWMwLWZiOTktNGQ4Mi1iODlmLWYwZDI4NjQ2YjM5YiJ9
 
 # License 
 
