@@ -1,6 +1,6 @@
 # Visualization and Prediction of Covid19 cases in India
 
-![](/images/giphy.gif)
+![](giphy.gif)
 
 
 We all are well aware of the fact that COVID-19 is affecting us to a great extent, so we have done this project, where we use COVID-19’s dataset for visualizing the impact of COVID in India and also predicting the cases for next 10 days.
