@@ -4,7 +4,7 @@ Let’s move forward . . .
 
 In part-1 of this project we have an established connection between snowflake and zepl notebook. In this part we will fetch the covid-19 data from different sources and put it in our snowflake database.
 
-![](/Part-2/image.png)
+![](image.png)
 
 Data i am working on :
 * https://github.com/owid/covid-19-data/tree/master/public/data
