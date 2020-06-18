@@ -3,11 +3,11 @@
 
 ## Create an account in Snowflake
 
-![](/Part-1/img/trial.PNG)
+![](trial.PNG)
 
-![](/Part-1/img/fill.PNG)
+![](fill.PNG)
 
-![](/Part-1/img/edition.PNG)
+![](edition.PNG)
 
 There are three types of Snowflake edition
 
@@ -19,32 +19,32 @@ There are three types of Snowflake edition
 
 So, I will choose Standard Edition as I need snowflakes for personal use and AWS as my cloud provider.
 
-![](/Part-1/img/signUp.PNG)
+![](signUp.PNG)
 
-![](/Part-1/img/mail.PNG)
+![](mail.PNG)
 
-![](/Part-1/img/snowflake_page.PNG)
+![](snowflake_page.PNG)
 
-![](/Part-1/img/Snowflake_login.PNG)
+![](Snowflake_login.PNG)
 
 There are many data science analytics platforms in the market that connect with snowflake but in my experience, I prefer using Zepl as it has many features compared to other platforms I tried. We can establish a **connection between snowflake and zepl in just one click**.
 
 
 #### Go to Partner Connect and just click on zepl
 
-![](/Part-1/img/partner_connect.PNG)
+![](partner_connect.PNG)
 
 Snowflake will automatically give you credentials and connect you with zepl. Remember Only account admin can create connections with snowflake partners.
 
 So I am working on a zepl notebook for running my python script.
 
-![](/Part-1/img/Login_zepl.PNG)
+![](Login_zepl.PNG)
 
-![](/Part-1/img/database.PNG)
+![](database.PNG)
 
 You just have to add the resource then we are ready to go. In your code, you have to add a single line which zepl provides you just click in the symbol (</>) and you will get the statement you need to add in whichever language you are working on as I am going to write a python script so I will copy for the python.
 
-![](/Part-1/img/code_copy.PNG)
+![](code_copy.PNG)
 
 ` conn=z.getDatasource(“snowflake_HG36605apsouth1aws_bf684a”) `
 
