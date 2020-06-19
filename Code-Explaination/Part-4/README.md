@@ -2,7 +2,11 @@
 
 Now we are using the merge command to update the data in the PREDICTION table by merging the actual data from INDIA_DATA and predicted data, date from PREDICTION. For this i will create stream and task in snowflake 
 
-<video src="stream.mp4" width="320" height="200" controls preload></video>
+<video width="320" height="240" controls>
+  <source src="stream.mp4" type="video/mp4">
+</video>
+
+[![Alternate Text](Capture.PNG)](https://youtu.be/Skd_BnNHR-Y "Link Title")
 
 What does stream do????
 
@@ -11,6 +15,8 @@ Stream captures the change in the data.So we will create a stream on Temp_table 
 >> create or replace stream COVID_table_changes on table TEMP_TABLE;
 
 Our stream contains the columns of the temp_table .Additionally, there are three new columns you can use to find out what type of DML operations changed data in a source table: METADATA$ACTION, METADATA$ISUPDATE, and METADATA$ROW_ID.
+
+![](table.PNG)
 
 Now whenever we will update the temp_table stream will capture those changes and we will use it for triggering our task.So let’s create a task , first we will create a role taskadmin , then change our role to accountadmin so that we can give task admin permission to execute task
 
