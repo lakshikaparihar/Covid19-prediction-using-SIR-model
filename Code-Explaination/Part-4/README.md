@@ -2,7 +2,7 @@
 
 Now we are using the merge command to update the data in the PREDICTION table by merging the actual data from INDIA_DATA and predicted data, date from PREDICTION. For this i will create stream and task in snowflake 
 
-![](stream.mp4)
+<video src="stream.mp4" width="320" height="200" controls preload></video>
 
 What does stream do????
 
