@@ -15,7 +15,7 @@ There are three types of Snowflake edition
 
 **Enterprise Edition**: Best for large-scale Organizations and Enterprises. It provides us all the features of Standard Edition with some additional features designed particularly for Enterprises.
 
-**Business Critical Edition**: It provides us all the features of Enterprise Edition with enhanced security and data protection.
+**Business Critical Edition**: It provides us all the features of enterprise Edition with enhanced security and data protection.
 
 So, I will choose Standard Edition as I need snowflakes for personal use and AWS as my cloud provider.
 
